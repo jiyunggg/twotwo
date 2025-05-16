@@ -19,24 +19,24 @@ public class AuditableEntity {
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdAt;
+    protected LocalDateTime createdAt;
 
     @LastModifiedDate
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime updatedAt;
+    protected LocalDateTime updatedAt;
 
     @CreatedBy
     @Column(name = "created_by", updatable = false)
-    private Long createdBy;
+    protected Long createdBy;
 
     @LastModifiedBy
     @Column(name = "updated_by")
-    private Long updatedBy;
+    protected Long updatedBy;
 
     @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
+    protected LocalDateTime deletedAt;
 
     @Column(name = "deleted_by")
-    private Long deletedBy;
+    protected Long deletedBy;
 }
