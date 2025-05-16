@@ -53,11 +53,10 @@ public class ProductService {
         return productRepository.searchProducts(keyword, minPrice, maxPrice, sortBy, sortDirection, pageable);
     }
 
+    // 상품 등록
     @Transactional
     public ProductResponseDto createProduct(ProductRequestDto requestDto) {
-        Store store = storeRepository.findById(requestDto.getStoreId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다: " + requestDto.getStoreId()));
-
+        Store store = findStore(requestDto.getStoreId());
         Long createdBy = authenticateMember();
 
         if (requestDto.getPrice() < 0) {
@@ -97,9 +96,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public List<ProductListResponseDto> getProductsByStoreId(UUID storeId) {
-        Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다: " + storeId));
-
+        Store store = findStore(storeId);
         List<Product> products = productRepository.findByStoreAndIsDeletedFalse(store);
 
         if (products.isEmpty()) {
@@ -142,9 +139,7 @@ public class ProductService {
 
     @Transactional
     public ProductUpdateResponseDto updateProduct(UUID productId, ProductUpdateRequestDto requestDto) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다: " + productId));
-
+        Product product = findProduct(productId);
         Long updatedBy = authenticateMember();
 
         if (requestDto.getProductName() != null) {
@@ -180,8 +175,7 @@ public class ProductService {
 
     @Transactional
     public ProductDeleteResponseDto deleteProduct(UUID productId) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다: " + productId));
+        Product product = findProduct(productId);
 
         Long deletedBy = authenticateMember();
 
@@ -195,5 +189,17 @@ public class ProductService {
                 .deletedAt(product.getDeletedAt().format(FORMATTER))
                 .deletedBy(deletedBy)
                 .build();
+    }
+
+    /// ////////////////////////////////////////////////
+
+    private Product findProduct(UUID productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다: " + productId));
+    }
+
+    private Store findStore(UUID storeId) {
+        return storeRepository.findById(storeId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다: " + storeId));
     }
 }
