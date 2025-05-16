@@ -3,7 +3,6 @@ package com.sparta.twotwo.product.service;
 import com.sparta.twotwo.ai.entity.AIRequestLog;
 import com.sparta.twotwo.ai.service.AIService;
 import com.sparta.twotwo.auth.util.SecurityUtil;
-import com.sparta.twotwo.enums.AIRequestStatus;
 import com.sparta.twotwo.product.dto.*;
 import com.sparta.twotwo.product.entity.Product;
 import com.sparta.twotwo.product.repository.ProductRepository;
@@ -65,19 +64,8 @@ public class ProductService {
         reqProduct.addAiDescription(aiRequestLog);
         Product savedProduct = productRepository.save(reqProduct);
 
-
-        return ProductResponseDto.builder()
-                .productId(reqProduct.getId())
-                .storeId(reqProduct.getStore().getId())
-                .description(reqProduct.getDescription())
-                .productName(reqProduct.getProductName())
-                .price(reqProduct.getPrice())
-                .imageUrl(reqProduct.getImageUrl())
-                .createdAt(reqProduct.getCreatedAt().format(FORMATTER))
-                .createdBy(reqProduct.getCreatedBy())
-                .build();
+        return ProductResponseDto.from(savedProduct);
     }
-
 
     @Transactional(readOnly = true)
     public List<ProductListResponseDto> getProductsByStoreId(UUID storeId) {
