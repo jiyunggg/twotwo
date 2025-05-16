@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -45,4 +46,19 @@ public class Product extends BaseEntity {
 
     @Column(name = "image_url", length = 200)
     private String imageUrl;
+
+    public Product(
+            Store store,
+            String productName,
+            int price,
+            String imageUrl,
+            Long createdBy
+    ) {
+        this.store = store;
+        this.productName = productName;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.createdBy = createdBy;
+        this.createdAt = LocalDateTime.now();
+    }
 }

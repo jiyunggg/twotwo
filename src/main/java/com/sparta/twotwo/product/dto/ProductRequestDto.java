@@ -1,5 +1,7 @@
 package com.sparta.twotwo.product.dto;
 
+import com.sparta.twotwo.product.entity.Product;
+import com.sparta.twotwo.store.entity.Store;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,7 +16,7 @@ public class ProductRequestDto {
     @NotNull
     private UUID storeId;
 
-    private String description; //설명 수동 입력 가능 (?)
+    private String description;
 
     @NotBlank
     private String productName;
@@ -24,4 +26,13 @@ public class ProductRequestDto {
 
     private String imageUrl;
 
+    public Product toEntity(Store store, Long createdBy) {
+        return new Product(
+                store,
+                productName,
+                price,
+                imageUrl,
+                createdBy
+        );
+    }
 }
