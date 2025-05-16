@@ -28,8 +28,6 @@ public class AIService {
     public AIRequestLog generateProductDescription(Product product) {
         AIRequestLog aiRequestLog = new AIRequestLog();
         aiRequestLog.setProduct(product);
-//        aiRequestLog.setRequestText(prompt);
-//        aiRequestLog.setStatus(AIRequestStatus.PENDING);
 
         // 요청 프롬포트 생성
         String finalPrompt = String.format(
@@ -68,7 +66,6 @@ public class AIService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-//        headers.set("Authorization", "Bearer " + API_KEY);
 
         String requestBody = String.format(
                 "{\"contents\":[{\"parts\":[{\"text\":\"%s\"}]}]}",

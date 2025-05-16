@@ -61,4 +61,9 @@ public class Product extends BaseEntity {
         this.createdBy = createdBy;
         this.createdAt = LocalDateTime.now();
     }
+
+    public void addAiDescription(AIRequestLog aiRequestLog) {
+        this.descriptionLog = aiRequestLog; // ai 요청
+        this.description = aiRequestLog.getResponseText(); // ai 응답
+    }
 }

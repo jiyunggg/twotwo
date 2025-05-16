@@ -59,37 +59,22 @@ public class ProductService {
         Store store = findStore(requestDto.getStoreId());
         Long createdBy = authenticateMember();
 
-        if (requestDto.getPrice() < 0) {
-            throw new IllegalArgumentException("상품 가격은 0 이상이어야 합니다.");
-        }
+        Product reqProduct = requestDto.toEntity(store, createdBy);
+        AIRequestLog aiRequestLog = aiService.generateProductDescription(reqProduct);
 
-        Product product = new Product();
-        product.setStore(store);
-        product.setProductName(requestDto.getProductName());
-        product.setPrice(requestDto.getPrice());
-        product.setImageUrl(requestDto.getImageUrl());
-        product.setCreatedBy(createdBy);
-        product.setCreatedAt(LocalDateTime.now());
+        reqProduct.addAiDescription(aiRequestLog);
+        Product savedProduct = productRepository.save(reqProduct);
 
-        Product savedProduct = productRepository.save(product);
-
-        AIRequestLog aiRequestLog = aiService.generateProductDescription(savedProduct);
-
-        if (aiRequestLog != null && aiRequestLog.getStatus() == AIRequestStatus.SUCCESS) {
-            savedProduct.setDescriptionLog(aiRequestLog);
-            savedProduct.setDescription(aiRequestLog.getResponseText());
-            savedProduct = productRepository.save(savedProduct);
-        }
 
         return ProductResponseDto.builder()
-                .productId(savedProduct.getId())
-                .storeId(savedProduct.getStore().getId())
-                .description(savedProduct.getDescription())
-                .productName(savedProduct.getProductName())
-                .price(savedProduct.getPrice())
-                .imageUrl(savedProduct.getImageUrl())
-                .createdAt(savedProduct.getCreatedAt().format(FORMATTER))
-                .createdBy(savedProduct.getCreatedBy())
+                .productId(reqProduct.getId())
+                .storeId(reqProduct.getStore().getId())
+                .description(reqProduct.getDescription())
+                .productName(reqProduct.getProductName())
+                .price(reqProduct.getPrice())
+                .imageUrl(reqProduct.getImageUrl())
+                .createdAt(reqProduct.getCreatedAt().format(FORMATTER))
+                .createdBy(reqProduct.getCreatedBy())
                 .build();
     }
 
