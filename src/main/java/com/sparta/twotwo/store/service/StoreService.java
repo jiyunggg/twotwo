@@ -6,7 +6,7 @@ import com.sparta.twotwo.common.exception.ErrorCode;
 import com.sparta.twotwo.common.exception.TwotwoApplicationException;
 import com.sparta.twotwo.members.entity.Member;
 import com.sparta.twotwo.members.repository.MemberRepository;
-import com.sparta.twotwo.product.entity.Product;
+import com.sparta.twotwo.product.entity.ProductEntity;
 import com.sparta.twotwo.product.service.ProductService;
 import com.sparta.twotwo.store.dto.request.StoreSearchRequestDto;
 import com.sparta.twotwo.address.entity.Address;
@@ -144,9 +144,9 @@ public class StoreService {
         store.setDeletedBy(deleterId);
         store.setIsDeleted(Boolean.TRUE);
 
-        List<Product> products = store.getProducts();
+        List<ProductEntity> products = store.getProducts();
         if (products != null) {
-            for (Product product : products) {
+            for (ProductEntity product : products) {
                 productService.deleteProduct(product.getId());
             }
         }

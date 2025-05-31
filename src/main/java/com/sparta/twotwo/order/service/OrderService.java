@@ -13,7 +13,7 @@ import com.sparta.twotwo.order.entity.Order;
 import com.sparta.twotwo.order.entity.OrderProduct;
 import com.sparta.twotwo.order.repository.OrderProductRepository;
 import com.sparta.twotwo.order.repository.OrderRepository;
-import com.sparta.twotwo.product.entity.Product;
+import com.sparta.twotwo.product.entity.ProductEntity;
 import com.sparta.twotwo.product.repository.ProductRepository;
 import com.sparta.twotwo.store.entity.Store;
 import com.sparta.twotwo.store.repository.StoreRepository;
@@ -58,7 +58,7 @@ public class OrderService {
 
         Long totalPrice = 0L;
         for(OrderProductRequestDto dto : orderProductRequestDtos) {
-            Product product = productRepository.findById(dto.getProductId())
+            ProductEntity product = productRepository.findById(dto.getProductId())
                     .orElseThrow(()-> new TwotwoApplicationException(ErrorCode.ORDER_NOT_FOUND));
 
             OrderProduct orderProduct = OrderProduct.builder()
@@ -121,7 +121,7 @@ public class OrderService {
         Long prevPrice = orderProduct.getQuantity() * orderProduct.getProduct().getPrice();
 
 
-        Product product = productRepository.findById(orderProductRequestDto.getProductId())
+        ProductEntity product = productRepository.findById(orderProductRequestDto.getProductId())
                 .orElseThrow(()->new TwotwoApplicationException(ErrorCode.PRODUCT_NOT_FOUND));
         orderProduct.changeProduct(product);
         orderProduct.changeQuantity(orderProductRequestDto.getQuantity());

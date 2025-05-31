@@ -1,6 +1,6 @@
-package com.sparta.twotwo.product.dto;
+package com.sparta.twotwo.product.dto.request;
 
-import com.sparta.twotwo.product.entity.Product;
+import com.sparta.twotwo.product.entity.ProductEntity;
 import com.sparta.twotwo.store.entity.Store;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -26,8 +26,8 @@ public class ProductRequestDto {
 
     private String imageUrl;
 
-    public Product toEntity(Store store, Long createdBy) {
-        return new Product(
+    public ProductEntity toEntity(Store store, Long createdBy) {
+        return new ProductEntity(
                 store,
                 productName,
                 price,

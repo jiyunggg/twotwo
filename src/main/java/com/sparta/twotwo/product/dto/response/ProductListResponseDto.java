@@ -1,4 +1,4 @@
-package com.sparta.twotwo.product.dto;
+package com.sparta.twotwo.product.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

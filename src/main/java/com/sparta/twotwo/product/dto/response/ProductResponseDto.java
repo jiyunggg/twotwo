@@ -1,7 +1,7 @@
-package com.sparta.twotwo.product.dto;
+package com.sparta.twotwo.product.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.sparta.twotwo.product.entity.Product;
+import com.sparta.twotwo.product.entity.ProductEntity;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -24,7 +24,7 @@ public class ProductResponseDto {
     private String updatedAt;
     private Long updatedBy;
 
-    public static ProductResponseDto from(Product product) {
+    public static ProductResponseDto from(ProductEntity product) {
         return ProductResponseDto.builder()
                 .productId(product.getId())
                 .storeId(product.getStore().getId())

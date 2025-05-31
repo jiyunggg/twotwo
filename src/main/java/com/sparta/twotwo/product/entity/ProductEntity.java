@@ -20,7 +20,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "p_product")
-public class Product extends BaseEntity {
+public class ProductEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @JdbcTypeCode(SqlTypes.BINARY)
@@ -47,7 +47,7 @@ public class Product extends BaseEntity {
     @Column(name = "image_url", length = 200)
     private String imageUrl;
 
-    public Product(
+    public ProductEntity(
             Store store,
             String productName,
             int price,

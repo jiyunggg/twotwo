@@ -2,7 +2,7 @@ package com.sparta.twotwo.ai.entity;
 
 import com.sparta.twotwo.common.auditing.AuditableEntity;
 import com.sparta.twotwo.enums.AIRequestStatus;
-import com.sparta.twotwo.product.entity.Product;
+import com.sparta.twotwo.product.entity.ProductEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +27,7 @@ public class AIRequestLog extends AuditableEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    private ProductEntity product;
 
     @Column(name = "request_text", columnDefinition = "TEXT", nullable = false)
     private String requestText;

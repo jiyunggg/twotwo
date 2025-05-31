@@ -2,9 +2,8 @@ package com.sparta.twotwo.order.entity;
 
 
 import com.sparta.twotwo.common.auditing.BaseEntity;
-import com.sparta.twotwo.enums.OrderType;
 import com.sparta.twotwo.order.dto.OrderProductDto;
-import com.sparta.twotwo.product.entity.Product;
+import com.sparta.twotwo.product.entity.ProductEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -22,7 +21,7 @@ import java.util.UUID;
 public class OrderProduct extends BaseEntity {
 
     @Builder
-    public OrderProduct(Order order, Product product, Long quantity){
+    public OrderProduct(Order order, ProductEntity product, Long quantity){
         this.order = order;
         this.product = product;
         this.quantity = quantity;
@@ -40,7 +39,7 @@ public class OrderProduct extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
-    private Product product;
+    private ProductEntity product;
 
     @Column(name = "quantity", nullable = false)
     private Long quantity;
@@ -52,7 +51,7 @@ public class OrderProduct extends BaseEntity {
     public void changeQuantity(Long quantity) {
         this.quantity = quantity;
     }
-    public void changeProduct(Product product) {
+    public void changeProduct(ProductEntity product) {
         this.product = product;
     }
 
