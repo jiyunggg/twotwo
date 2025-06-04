@@ -3,7 +3,7 @@ package com.sparta.twotwo.store.entity;
 import com.sparta.twotwo.address.entity.Address;
 import com.sparta.twotwo.common.auditing.BaseEntity;
 import com.sparta.twotwo.members.entity.Member;
-import com.sparta.twotwo.product.entity.Product;
+import com.sparta.twotwo.product.entity.ProductEntity;
 import com.sparta.twotwo.review.entity.Review;
 import jakarta.persistence.*;
 import lombok.*;
@@ -43,7 +43,7 @@ public class Store extends BaseEntity {
     private StoreCategory category;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Product> products = new ArrayList<>();
+    private List<ProductEntity> products = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "store_id")

@@ -1,6 +1,6 @@
 package com.sparta.twotwo.product.repository;
 
-import com.sparta.twotwo.product.dto.ProductListResponseDto;
+import com.sparta.twotwo.product.dto.response.ProductListResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

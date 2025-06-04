@@ -1,7 +1,9 @@
 package com.sparta.twotwo.product.controller;
 
 import com.sparta.twotwo.common.response.ApiResponse;
-import com.sparta.twotwo.product.dto.*;
+import com.sparta.twotwo.product.dto.request.ProductRequestDto;
+import com.sparta.twotwo.product.dto.request.ProductUpdateRequestDto;
+import com.sparta.twotwo.product.dto.response.*;
 import com.sparta.twotwo.product.service.ProductService;
 import com.sparta.twotwo.product.service.S3Service;
 import jakarta.validation.Valid;

@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -19,7 +20,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "p_product")
-public class Product extends BaseEntity {
+public class ProductEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @JdbcTypeCode(SqlTypes.BINARY)
@@ -45,4 +46,24 @@ public class Product extends BaseEntity {
 
     @Column(name = "image_url", length = 200)
     private String imageUrl;
+
+    public ProductEntity(
+            Store store,
+            String productName,
+            int price,
+            String imageUrl,
+            Long createdBy
+    ) {
+        this.store = store;
+        this.productName = productName;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.createdBy = createdBy;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public void addAiDescription(AIRequestLog aiRequestLog) {
+        this.descriptionLog = aiRequestLog; // ai 요청
+        this.description = aiRequestLog.getResponseText(); // ai 응답
+    }
 }

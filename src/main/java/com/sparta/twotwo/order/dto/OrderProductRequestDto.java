@@ -2,7 +2,7 @@ package com.sparta.twotwo.order.dto;
 
 import com.sparta.twotwo.order.entity.Order;
 import com.sparta.twotwo.order.entity.OrderProduct;
-import com.sparta.twotwo.product.entity.Product;
+import com.sparta.twotwo.product.entity.ProductEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +15,7 @@ public class OrderProductRequestDto {
     private Long quantity;
     private UUID productId;
 
-    public OrderProduct toEntity(Order order, Product product){
+    public OrderProduct toEntity(Order order, ProductEntity product){
         return OrderProduct.builder()
                 .order(order)
                 .product(product)

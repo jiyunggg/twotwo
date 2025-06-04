@@ -4,14 +4,13 @@ import com.sparta.twotwo.enums.OrderType;
 import com.sparta.twotwo.members.entity.Member;
 import com.sparta.twotwo.order.entity.Order;
 import com.sparta.twotwo.order.entity.OrderProduct;
-import com.sparta.twotwo.product.entity.Product;
+import com.sparta.twotwo.product.entity.ProductEntity;
 import com.sparta.twotwo.store.entity.Store;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -33,7 +32,7 @@ public class OrderRequestDto {
                 .build();
     }
 
-    public OrderProduct toOrderProductEntity(Order order, Product product){
+    public OrderProduct toOrderProductEntity(Order order, ProductEntity product){
         return OrderProduct.builder()
                 .order(order)
                 .product(product)

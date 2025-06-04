@@ -6,7 +6,7 @@ import com.sparta.twotwo.ai.config.GeminiConfig;
 import com.sparta.twotwo.ai.entity.AIRequestLog;
 import com.sparta.twotwo.ai.repository.AIRequestLogRepository;
 import com.sparta.twotwo.enums.AIRequestStatus;
-import com.sparta.twotwo.product.entity.Product;
+import com.sparta.twotwo.product.entity.ProductEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -25,11 +25,9 @@ public class AIService {
     private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent";
 
     @Transactional
-    public AIRequestLog generateProductDescription(Product product) {
+    public AIRequestLog generateProductDescription(ProductEntity product) {
         AIRequestLog aiRequestLog = new AIRequestLog();
         aiRequestLog.setProduct(product);
-//        aiRequestLog.setRequestText(prompt);
-//        aiRequestLog.setStatus(AIRequestStatus.PENDING);
 
         // 요청 프롬포트 생성
         String finalPrompt = String.format(
@@ -68,7 +66,6 @@ public class AIService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-//        headers.set("Authorization", "Bearer " + API_KEY);
 
         String requestBody = String.format(
                 "{\"contents\":[{\"parts\":[{\"text\":\"%s\"}]}]}",

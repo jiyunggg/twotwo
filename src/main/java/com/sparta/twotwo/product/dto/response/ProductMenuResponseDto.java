@@ -1,6 +1,6 @@
-package com.sparta.twotwo.product.dto;
+package com.sparta.twotwo.product.dto.response;
 
-import com.sparta.twotwo.product.entity.Product;
+import com.sparta.twotwo.product.entity.ProductEntity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +17,7 @@ public class ProductMenuResponseDto {
     private final String imageUrl;
     private final boolean isHidden;
 
-    public static ProductMenuResponseDto from(Product product) {
+    public static ProductMenuResponseDto from(ProductEntity product) {
         return new ProductMenuResponseDto(
                 product.getId(),
                 product.getProductName(),

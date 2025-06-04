@@ -3,8 +3,8 @@ package com.sparta.twotwo.product.repository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.sparta.twotwo.product.dto.ProductListResponseDto;
-import com.sparta.twotwo.product.entity.Product;
+import com.sparta.twotwo.product.dto.response.ProductListResponseDto;
+import com.sparta.twotwo.product.entity.ProductEntity;
 import com.sparta.twotwo.product.entity.QProduct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -40,7 +40,7 @@ public class ProductSearchRepositoryImpl implements ProductSearchRepository {
             orderBy = sortBy.equals("updatedAt") ? product.updatedAt.asc() : product.createdAt.asc();
         }
 
-        QueryResults<Product> results = queryFactory
+        QueryResults<ProductEntity> results = queryFactory
                 .selectFrom(product)
                 .where(builder)
                 .orderBy(orderBy)
